@@ -7,14 +7,22 @@
 <script>
 import Recipes from './components/Recipes.vue'
 
+
 export default {
   name: 'app',
   components: {
-    Recipes
+    Recipes,
   }
 }
 </script>
 
 <style>
+  body{
+    text-align:center;
+  }
 
+  body > div{
+    margin:3rem;
+    font-weight: 300;
+  }
 </style>
