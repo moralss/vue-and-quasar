@@ -1,30 +1,32 @@
 <template>
   <div>
-      <label for="">Recipe Name</label>
-      <input type="text" v-model="recipeName" placeholder="recipeName" />
-      <label for="">Ingredient</label>
-      <input type="text"  v-model="ingredients" placeholder="ingredient" />
-      <button @click="addRecipe"> submit </button>
+    <label for>Recipe Name</label>
+    <input type="text" v-model="recipeName" placeholder="recipeName" />
+    <label for>Ingredient</label>
+    <input type="text" v-model="ingredients" placeholder="ingredient" />
+    <button @click="addNewRecipe()">submit</button>
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
-  name: 'Add',
-  data(){
+  name: "Add",
+  data() {
     return {
-        recipeName : "",
-        ingredients: ""
-    }
+      recipeName: "",
+      ingredients: ""
+    };
   },
   methods: {
-  addRecipe() {    
-    const recipe = {recipeName:this.recipeName , ingredients : this.ingredient};
-    this.recipeName = "";
-    this.ingredients = "";
-    this.$emit('add_event', recipe)
-  },
- }
-}
+    ...mapActions(["addRecipe"]),
+    addNewRecipe() {
+      const newRecipe = {recipeName: this.recipeName, ingredients: this.ingredients , isEdited:false};
+      this.$store.dispatch("addRecipe", newRecipe);
+      this.recipeName = "";
+      this.ingredients = "";
+    }
+  }
+};
 </script>
 <style >
 </style>
