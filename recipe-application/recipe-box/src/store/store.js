@@ -9,18 +9,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        recipes: [
-            {
-              recipeName: 'Seafood',
-              ingredients: 'milk fish',
-              isEdited: false
-            },
-            {
-              recipeName: 'pop',
-              ingredients: 'sun flower water',
-              isEdited: false
-            }
-          ],
+        recipes: [],
+        recipeToEdit : {recipeName: "" , ingredients : "" , id : ""},
     }, 
     getters,
     mutations,

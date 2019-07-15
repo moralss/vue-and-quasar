@@ -19,8 +19,12 @@ export default {
   },
   methods: {
     ...mapActions(["addRecipe"]),
+    ...mapActions(["fetchRecipes"]),
     addNewRecipe() {
-      const newRecipe = {recipeName: this.recipeName, ingredients: this.ingredients , isEdited:false};
+        const newRecipe = {
+        recipeName: this.recipeName,
+        ingredients: this.ingredients,
+      };
       this.$store.dispatch("addRecipe", newRecipe);
       this.recipeName = "";
       this.ingredients = "";

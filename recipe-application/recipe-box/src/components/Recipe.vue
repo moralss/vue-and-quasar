@@ -5,9 +5,9 @@
       {{recipe.recipeName}}
     </h2>
     <p>{{recipe.ingredients}}</p>
-    <button @click="removeRecipe(index)">delete</button>
-    <button @click="changeIsEdited({index})">edit</button>
-    <Edit v-if="recipe.isEdited" :recipe="recipe" :index="index"></Edit>
+    <button @click="removeRecipe(recipe.id)">delete</button>
+    <button @click="changeIsEdited(recipe)">edit</button>
+    <!-- <Edit></Edit> -->
   </div>
 </template>
 <script>
@@ -15,17 +15,17 @@ import { mapMutations, mapActions } from "vuex";
 import { TOGGLE_IS_EDIT } from "../store/types";
 export default {
   name: "Recipe",
-  props: ["recipe", "index"],
+  props: ["recipe", "id"],
 
   methods: {
     ...mapActions(["removeRecipe"]),
     ...mapMutations({"changeIsEdited" : TOGGLE_IS_EDIT}),
-    removeRecipe(index) {
-      this.$store.dispatch("removeRecipe", index);
+    removeRecipe(id) {
+      this.$store.dispatch("removeRecipe", id);
     }
   },
   components: {
-    Edit: require("./Edit").default
+    // Edit: require("./Edit").default
   }
 };
 </script>

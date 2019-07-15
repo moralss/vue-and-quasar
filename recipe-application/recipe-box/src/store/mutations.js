@@ -17,8 +17,11 @@ import * as types from './types';
         }
     },
     [types.TOGGLE_IS_EDIT] : (state , payload) => {
-            state.recipes[payload.index].isEdited = !state.recipes[payload.index].isEdited;  
-    }
+        state.recipeToEdit = payload;    
+    },
+    [types.FETCH_RECIPES] : (state , payload) => {
+      state.recipes.push(...payload);  
+}
 }
 
 

@@ -9,6 +9,7 @@ namespace RecipeApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class RecipeController : ControllerBase
     {
       
@@ -20,6 +21,7 @@ namespace RecipeApplication.Controllers
         }
 
         [HttpGet]
+        [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public ActionResult<List<Recipe>> Get()
         {
             List<Recipe> result = _recipeRepository.ShowRecipes();
@@ -30,6 +32,7 @@ namespace RecipeApplication.Controllers
   
         // POST api/values
         [HttpPost]
+        [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public ActionResult<Recipe> addRecipes([FromBody] Recipe recipe)
         {
             Recipe savedRecipe = _recipeRepository.addRecipe(recipe);
@@ -38,6 +41,7 @@ namespace RecipeApplication.Controllers
 
         // PUT api/values/5
         [HttpPut]
+        [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public void Put([FromBody] Recipe recipe)
         {
             _recipeRepository.updateRecipe(recipe);

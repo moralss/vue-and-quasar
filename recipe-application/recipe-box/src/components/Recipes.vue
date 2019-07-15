@@ -1,14 +1,18 @@
 <template>
   <div>
     <h1>List of Recipes</h1>
-    <Recipe v-for="(recipe , index) in recipes" :key="index" :recipe="recipe" :index="index"></Recipe>
+    <Recipe v-for="(recipe , id) in recipes" 
+     :key="id" :recipe="recipe"
+     :id="id"></Recipe>
     <h1>Add Recipe</h1>
     <Add />
+    <Edit></Edit>
   </div>
 </template>
 
 <script>
 import { mapGetters} from "vuex";
+import { mapActions} from "vuex";
 export default {
   name: "Recipes",
   computed: {
@@ -18,7 +22,14 @@ export default {
   },
   components: {
     Recipe: require("./Recipe").default,
-    Add: require("./Add").default
+    Add: require("./Add").default,
+    Edit: require("./Edit").default
+  },
+  methods: {
+    ...mapActions(["fetchRecipes"])
+  },
+  created: function() {
+    this.$store.dispatch("fetchRecipes");
   }
 };
 </script>
