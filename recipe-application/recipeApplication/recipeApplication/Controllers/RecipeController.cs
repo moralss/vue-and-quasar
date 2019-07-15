@@ -22,8 +22,9 @@ namespace recipeApplication.Controllers
         }
 
         // POST: api/Recipe
-        public void Post([FromBody]string value)
+        public void Post([FromBody] Recipe recipe)
         {
+            System.Diagnostics.Debug.WriteLine("recipe " + recipe.Name);
         }
 
         // PUT: api/Recipe/5
