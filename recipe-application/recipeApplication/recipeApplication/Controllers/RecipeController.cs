@@ -1,38 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-
-namespace recipeApplication.Controllers
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using RecipeApplication.Models;
+using RecipeApplication.Repositorys;
+namespace RecipeApplication.Controllers
 {
-    public class RecipeController : ApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RecipeController : ControllerBase
     {
-        // GET: api/Recipe
-        public IEnumerable<string> Get()
+      
+        private RepositoryInterface _recipeRepository;
+
+        public RecipeController(RepositoryInterface recipeRepository)
         {
-            return new string[] { "value1", "value2" };
+           _recipeRepository = recipeRepository;
         }
 
-        // GET: api/Recipe/5
-        public string Get(int id)
+        [HttpGet]
+        public ActionResult<List<Recipe>> Get()
         {
-            return "value";
+            List<Recipe> result = _recipeRepository.ShowRecipes();
+            Console.WriteLine(result);
+            return result;
         }
 
-        // POST: api/Recipe
-        public void Post([FromBody] Recipe recipe)
+  
+        // POST api/values
+        [HttpPost]
+        public ActionResult<Recipe> addRecipes([FromBody] Recipe recipe)
         {
-            System.Diagnostics.Debug.WriteLine("recipe " + recipe.Name);
+            Recipe savedRecipe = _recipeRepository.addRecipe(recipe);
+            return savedRecipe;
         }
 
-        // PUT: api/Recipe/5
-        public void Put(int id, [FromBody]string value)
+        // PUT api/values/5
+        [HttpPut]
+        public void Put([FromBody] Recipe recipe)
         {
+            _recipeRepository.updateRecipe(recipe);
         }
 
-        // DELETE: api/Recipe/5
+        // DELETE api/values/5
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
         }
