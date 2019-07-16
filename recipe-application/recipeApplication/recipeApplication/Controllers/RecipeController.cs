@@ -24,18 +24,17 @@ namespace RecipeApplication.Controllers
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public ActionResult<List<Recipe>> Get()
         {
-            List<Recipe> result = _recipeRepository.ShowRecipes();
-            Console.WriteLine(result);
-            return result;
+            List<Recipe> recipes = _recipeRepository.ShowRecipes();
+            return recipes;
         }
 
   
         // POST api/values
         [HttpPost]
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
-        public ActionResult<Recipe> addRecipes([FromBody] Recipe recipe)
+        public ActionResult<Recipe> AddRecipes([FromBody] Recipe recipe)
         {
-            Recipe savedRecipe = _recipeRepository.addRecipe(recipe);
+            Recipe savedRecipe = _recipeRepository.AddRecipe(recipe);
             return savedRecipe;
         }
 
@@ -44,7 +43,7 @@ namespace RecipeApplication.Controllers
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public void Put([FromBody] Recipe recipe)
         {
-            _recipeRepository.updateRecipe(recipe);
+            _recipeRepository.UpdateRecipe(recipe);
         }
 
         // DELETE api/values/5

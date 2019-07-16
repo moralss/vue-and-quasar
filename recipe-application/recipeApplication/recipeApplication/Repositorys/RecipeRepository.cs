@@ -14,7 +14,7 @@ namespace RecipeApplication.Repositorys
             return this.recipes;
         }
 
-        private long generateId()
+        private long GenerateId()
         {
             if(recipes.Count > 0)
             {
@@ -27,15 +27,15 @@ namespace RecipeApplication.Repositorys
             return 0;
         }
 
-        public Recipe addRecipe(Recipe recipe)
+        public Recipe AddRecipe(Recipe recipe)
         {
-            long generatedId = generateId();
+            long generatedId = GenerateId();
             recipe.Id = generatedId;
             recipes.Add(recipe);
             return recipe;
         }
             
-        public void updateRecipe(Recipe recipe)
+        public void UpdateRecipe(Recipe recipe)
         {
             foreach (Recipe currentRecipe in recipes)
             {

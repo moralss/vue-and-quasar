@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\RecipeApplication"
+    "\\RecipeApplication",
+    "\\RecipeApplication\\Controllers",
+    "\\RecipeApplication\\wwwroot"
   ],
-  "SelectedNode": "\\RecipeApplication.sln",
+  "SelectedNode": "\\RecipeApplication\\Startup.cs",
   "PreviewInSolutionExplorer": false
 }

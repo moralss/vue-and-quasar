@@ -10,8 +10,7 @@ namespace RecipeApplication.Repositorys
     {
 
         List<Recipe> ShowRecipes();
-        Recipe addRecipe(Recipe recipe);
-
-        void updateRecipe(Recipe recipe);
+        Recipe AddRecipe(Recipe recipe);
+        void UpdateRecipe(Recipe recipe);
     }
 }
