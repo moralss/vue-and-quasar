@@ -54,7 +54,6 @@ namespace RecipeApplication.Controllers
 
 
 
-        // PUT api/values/5
         [HttpPut]
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public void Put([FromBody] Recipe recipe)
@@ -62,7 +61,7 @@ namespace RecipeApplication.Controllers
             _recipeRepository.UpdateRecipe(recipe);
         }
 
-        // DELETE api/values/5
+    
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
