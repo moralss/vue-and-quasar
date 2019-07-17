@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeApplication.Data", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeApplication.Utility", "..\RecipeApplication.Utility\RecipeApplication.Utility.csproj", "{2BC03940-10F4-4EA3-A06F-E8DFF36EA956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeApplication.WebApp", "RecipeApplication.WebApp\RecipeApplication.WebApp.csproj", "{6D1B825B-7E35-4976-A7EF-4E52B2689AF8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{2BC03940-10F4-4EA3-A06F-E8DFF36EA956}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC03940-10F4-4EA3-A06F-E8DFF36EA956}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC03940-10F4-4EA3-A06F-E8DFF36EA956}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D1B825B-7E35-4976-A7EF-4E52B2689AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D1B825B-7E35-4976-A7EF-4E52B2689AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D1B825B-7E35-4976-A7EF-4E52B2689AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D1B825B-7E35-4976-A7EF-4E52B2689AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

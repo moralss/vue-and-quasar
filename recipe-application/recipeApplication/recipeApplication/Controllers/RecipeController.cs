@@ -17,6 +17,7 @@ namespace RecipeApplication.Controllers
     {
       
         private RepositoryInterface _recipeRepository;
+       
 
         public RecipeController(RepositoryInterface recipeRepository)
         {
@@ -31,8 +32,6 @@ namespace RecipeApplication.Controllers
             return recipes;
         }
 
-  
-        // POST api/values
         [HttpPost]
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public async Task<ActionResult<Recipe>> AddRecipes([FromBody] Recipe recipe)
@@ -40,10 +39,10 @@ namespace RecipeApplication.Controllers
             try
             {
 
-            var retVal = await ContentProcesses.CreateRecipeAsync(recipe);
-            System.Diagnostics.Debug.WriteLine(retVal);
-            Recipe savedRecipe = _recipeRepository.AddRecipe(recipe);
-            return savedRecipe;
+                var retVal = await ContentProcesses.CreateRecipeAsync(recipe);
+                System.Diagnostics.Debug.WriteLine(retVal);
+                Recipe savedRecipe = _recipeRepository.AddRecipe(recipe);
+                return savedRecipe;
             }
             catch (Exception ex)
             {
@@ -52,6 +51,8 @@ namespace RecipeApplication.Controllers
 
             return null;
         }
+
+
 
         // PUT api/values/5
         [HttpPut]

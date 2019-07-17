@@ -16,4 +16,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\RecipeApplication.Data\RecipeApplication.Data.csproj" />
+    <ProjectReference Include="..\..\RecipeApplication.Utility\RecipeApplication.Utility.csproj" />
+  </ItemGroup>
+
 </Project>
