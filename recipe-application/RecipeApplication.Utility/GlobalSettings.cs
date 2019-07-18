@@ -2,6 +2,7 @@
 using System.Threading;
 using RecipeApplication.Utility.Settings.Data;
 
+
 namespace RecipeApplication.Utility
 {
     public sealed class GlobalSettings : IDisposable
@@ -69,7 +70,7 @@ namespace RecipeApplication.Utility
         #region Keys
 
 #if DEBUG
-        public static string DbConnectionString => "Database=SoccerApp;Data Source=WARRICK-PC\\SQLEXPRESS;Integrated Security=true;Min Pool Size=0;Max Pool Size = 50;Timeout=60;";
+        public static string DbConnectionString => "Server=devsonsoftware.dedicated.co.za;Database=MoralDev;User Id=Moral; Password=PIx3PckQpMnOubktot60;";
 #else
         public static string DbConnectionString => "Database=SoccerApp;Data Source=WARRICK-PC\\SQLEXPRESS;Integrated Security=true;Min Pool Size=0;Max Pool Size = 50;Timeout=60;";
 #endif

@@ -1,4 +1,5 @@
 ﻿using RecipeApplication.Data.Artefact;
+using RecipeApplication.Data.Artefact.Common;
 using RecipeApplication.Data.Data.Content;
 using System;
 using System.Collections.Generic;
@@ -11,27 +12,26 @@ namespace RecipeApplication.Data.Processes
     {
         #region Create
 
-        public static async Task<int> CreateRecipeAsync(RecipeNew recipe)
+        public static async Task<CallReturn<int>> CreateRecipeAsync(RecipeNew recipe)
         {
-           // var retVal = new CallReturn<int>();
+            var retVal = new CallReturn<int>();
 
             try
             {
                 int value = await RecipeDBAsync.CreateAsync(new RecipeNew
                 {
-                    Description = recipe.Description,
-                    ModifiedUserId = recipe.ModifiedUserId,
-                    IsActive = recipe.IsActive,
+                    RecipeName = recipe.RecipeName,
+                    Ingredients = recipe.Ingredients
                 });
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                //retVal.SetError(ErrorType.SystemError, ex);
+                retVal.SetError(ErrorType.SystemError, ex);
             }
 
-            return 3;
+            return retVal;
         }
 
         #endregion

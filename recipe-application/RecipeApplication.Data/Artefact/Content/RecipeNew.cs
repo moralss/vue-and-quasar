@@ -21,7 +21,14 @@ namespace RecipeApplication.Data.Artefact
         }
 
         [DataMember]
-        public string Description
+        public string RecipeName
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public string Ingredients
         {
             get;
             set;

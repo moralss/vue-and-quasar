@@ -14,42 +14,40 @@ namespace RecipeApplication.Data.Data.Content
 
         private struct StoredProc
         {
-            public const string Commentary_Create = "Content.Commentary_Create";
-            public const string Commentary_Get = "Content.Commentary_Get";
-            public const string Commentary_Search = "Content.Commentary_Search";
-            public const string Commentary_Update = "Content.Commentary_Update";
-            public const string Commentary_Delete = "Content.Commentary_Delete";
+            public const string Recipe_Create = "content.Recipe_Create";
+            //public const string Commentary_Get = "Content.Commentary_Get";
+            //public const string Commentary_Search = "Content.Commentary_Search";
+            //public const string Commentary_Update = "Content.Commentary_Update";
+            //public const string Commentary_Delete = "Content.Commentary_Delete";
         }
 
         private struct Parameter
         {
             public const string Id = "@Id";
-            public const string Description = "@Description";
-            public const string ModifiedDate = "@ModifiedDate";
-            public const string ModifiedUserId = "@ModifiedUserId";
-            public const string IsActive = "@IsActive";
+            public const string RecipeName = "@RecipeName";
+            public const string Ingredients = "@Ingredients";
+          
         }
 
         #endregion Stored proc names, parameters...
 
         #region Create async
 
-        internal static async Task<int> CreateAsync(RecipeNew commentary)
+        internal static async Task<int> CreateAsync(RecipeNew recipe)
         {
             int id;
+            System.Diagnostics.Debug.WriteLine("throwed error ////////////////////////////////////////////////////////////////////", recipe.RecipeName + "watch for error : ");
 
             try
             {
                 using (var connection = new SqlConnection(GlobalSettings.DbConnectionString))
                 {
-                    using (var cmd = new SqlCommand(StoredProc.Commentary_Create, connection))
+                    using (var cmd = new SqlCommand(StoredProc.Recipe_Create, connection))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-
                         cmd.Parameters.Add(Parameter.Id, SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.AddWithValue(Parameter.Description, commentary.Description);
-                        cmd.Parameters.AddWithValue(Parameter.ModifiedUserId, commentary.ModifiedUserId);
-                        cmd.Parameters.AddWithValue(Parameter.IsActive, commentary.IsActive);
+                        cmd.Parameters.AddWithValue(Parameter.RecipeName, recipe.RecipeName);
+                        cmd.Parameters.AddWithValue(Parameter.Ingredients, recipe.Ingredients);             
 
                         await connection.OpenAsync();
                         await cmd.ExecuteNonQueryAsync();
@@ -58,8 +56,9 @@ namespace RecipeApplication.Data.Data.Content
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine("throwed error ////////////////////////////////////////////////////////////////////" , recipe.RecipeName + "watch for error : ");
                 throw;
             }
 

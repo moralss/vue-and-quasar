@@ -20,12 +20,8 @@ namespace RecipeApplication.Utility.Settings.Artefacts
         private enum Fields
         {
             Id,
-            Key,
-            Value,
-            Comment,
-            ModifiedDate,
-            ModifiedUserId,
-            IsActive,
+            RecipeName,
+            Ingredients,
         }
 
         #endregion Fields
@@ -39,12 +35,8 @@ namespace RecipeApplication.Utility.Settings.Artefacts
             if (reader != null)
             {
                 this.Id = reader.GetInt32((int)Fields.Id);
-                this.Key = reader.GetString((int)Fields.Key);
-                this.Value = reader.GetString((int)Fields.Value);
-                this.Comment = reader.IsDBNull((int)Fields.Comment) ? null : reader.GetString((int)Fields.Comment);
-                this.ModifiedDate = reader.GetDateTime((int)Fields.ModifiedDate);
-                this.ModifiedUserId = reader.GetInt32((int)Fields.ModifiedUserId);
-                this.IsActive = reader.GetBoolean((int)Fields.IsActive);
+                this.RecipeName = reader.GetString((int)Fields.RecipeName);
+                this.Ingredients = reader.GetString((int)Fields.Ingredients);
             }
         }
 
@@ -60,42 +52,14 @@ namespace RecipeApplication.Utility.Settings.Artefacts
         }
 
         [DataMember]
-        public string Key
+        public string RecipeName
         {
             get;
             set;
         }
 
         [DataMember]
-        public string Value
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public string Comment
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public DateTime ModifiedDate
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public int ModifiedUserId
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public bool IsActive
+        public string Ingredients
         {
             get;
             set;

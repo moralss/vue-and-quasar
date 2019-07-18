@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RecipeApplication.Data.Processes;
-using RecipeApplication.Models;
-using RecipeApplication.Repositorys;
-
+using RecipeApplication.Data.Artefact;
+using RecipeApplication.Data.Artefact.Common;
+using System.Net;
 
 namespace RecipeApplication.Controllers
 {
@@ -15,50 +15,48 @@ namespace RecipeApplication.Controllers
    
     public class RecipeController : ControllerBase
     {
-      
-        private RepositoryInterface _recipeRepository;
-       
-
-        public RecipeController(RepositoryInterface recipeRepository)
-        {
-           _recipeRepository = recipeRepository;
-        }
 
         [HttpGet]
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
-        public ActionResult<List<Recipe>> Get()
+        public string Get()
         {
-            List<Recipe> recipes = _recipeRepository.ShowRecipes();
-            return recipes;
+           
+            return "new string";
         }
 
         [HttpPost]
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
-        public async Task<ActionResult<Recipe>> AddRecipes([FromBody] Recipe recipe)
+        public async Task<IActionResult> AddRecipes([FromBody] RecipeNew recipe)
         {
             try
             {
-
                 var retVal = await ContentProcesses.CreateRecipeAsync(recipe);
-                System.Diagnostics.Debug.WriteLine(retVal);
-                Recipe savedRecipe = _recipeRepository.AddRecipe(recipe);
-                return savedRecipe;
+                switch (retVal.State)
+                {
+                    case CallReturnState.Success:
+                        return Ok(retVal);
+                    case CallReturnState.Warning:
+                    case CallReturnState.ValidationError:
+                        return BadRequest(retVal.Errors);
+                    case CallReturnState.Failure:
+                        return StatusCode((int)HttpStatusCode.InternalServerError, retVal.Errors);
+                }
+
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
             }
 
-            return null;
+            return StatusCode((int)HttpStatusCode.InternalServerError);
         }
-
 
 
         [HttpPut]
         [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
-        public void Put([FromBody] Recipe recipe)
+        public void Put([FromBody] RecipeNew recipe)
         {
-            _recipeRepository.UpdateRecipe(recipe);
+
         }
 
     
