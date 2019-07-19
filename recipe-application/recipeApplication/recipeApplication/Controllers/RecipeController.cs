@@ -7,6 +7,7 @@ using RecipeApplication.Data.Processes;
 using RecipeApplication.Data.Artefact;
 using RecipeApplication.Data.Artefact.Common;
 using System.Net;
+using RecipeApplication.Data.Artefact.Content;
 
 namespace RecipeApplication.Controllers
 {
@@ -16,16 +17,7 @@ namespace RecipeApplication.Controllers
     public class RecipeController : ControllerBase
     {
 
-        [HttpGet]
-        [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
-        public string Get()
-        {
-           
-            return "new string";
-        }
-
         [HttpPost]
-        [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public async Task<IActionResult> AddRecipes([FromBody] RecipeNew recipe)
         {
             try
@@ -53,7 +45,6 @@ namespace RecipeApplication.Controllers
 
 
         [HttpPut]
-        [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
         public void Put([FromBody] RecipeNew recipe)
         {
 
@@ -63,6 +54,40 @@ namespace RecipeApplication.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
-    }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+
+            try
+            {
+                var retVal = await ContentProcesses.GetRecipe(id);
+                switch (retVal.State)
+                {
+                    case CallReturnState.Success:
+                        return Ok(retVal);
+                    case CallReturnState.Warning:
+                    case CallReturnState.ValidationError:
+                        return BadRequest(retVal.Errors);
+                    case CallReturnState.Failure:
+                        return StatusCode((int)HttpStatusCode.InternalServerError, retVal.Errors);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+            }
+
+            return StatusCode((int)HttpStatusCode.InternalServerError);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return 
+        }
 }

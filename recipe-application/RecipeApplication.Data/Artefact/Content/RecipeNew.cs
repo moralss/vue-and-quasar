@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using System.Data;
 
 namespace RecipeApplication.Data.Artefact
 {
@@ -9,6 +10,7 @@ namespace RecipeApplication.Data.Artefact
 
         public RecipeNew() { }
 
+  
         #endregion Constructors
 
         #region Public properties

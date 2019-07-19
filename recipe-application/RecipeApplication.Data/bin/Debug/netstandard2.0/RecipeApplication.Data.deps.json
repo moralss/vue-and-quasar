@@ -11,7 +11,8 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "RecipeApplication.Utility": "1.0.0",
-          "System.Data.SqlClient": "4.6.1"
+          "System.Data.SqlClient": "4.6.1",
+          "Microsoft.AspNetCore.Razor.Language": "2.1.1.0"
         },
         "runtime": {
           "RecipeApplication.Data.dll": {}
@@ -146,6 +147,14 @@
         "runtime": {
           "RecipeApplication.Utility.dll": {}
         }
+      },
+      "Microsoft.AspNetCore.Razor.Language/2.1.1.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.Razor.Language.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
       }
     }
   },
@@ -269,6 +278,11 @@
     },
     "RecipeApplication.Utility/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Razor.Language/2.1.1.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

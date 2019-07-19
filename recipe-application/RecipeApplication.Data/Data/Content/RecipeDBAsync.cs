@@ -1,6 +1,8 @@
 ﻿using RecipeApplication.Data.Artefact;
+using RecipeApplication.Data.Artefact.Content;
 using RecipeApplication.Utility;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -15,8 +17,8 @@ namespace RecipeApplication.Data.Data.Content
         private struct StoredProc
         {
             public const string Recipe_Create = "content.Recipe_Create";
-            //public const string Commentary_Get = "Content.Commentary_Get";
-            //public const string Commentary_Search = "Content.Commentary_Search";
+            public const string Recipe_Get = "content.Recipe_Get";
+            public const string Recipes_Get = "Content.Recipes_Get";
             //public const string Commentary_Update = "Content.Commentary_Update";
             //public const string Commentary_Delete = "Content.Commentary_Delete";
         }
@@ -36,9 +38,8 @@ namespace RecipeApplication.Data.Data.Content
         internal static async Task<int> CreateAsync(RecipeNew recipe)
         {
             int id;
-            System.Diagnostics.Debug.WriteLine("throwed error ////////////////////////////////////////////////////////////////////", recipe.RecipeName + "watch for error : ");
-
             try
+      
             {
                 using (var connection = new SqlConnection(GlobalSettings.DbConnectionString))
                 {
@@ -51,14 +52,13 @@ namespace RecipeApplication.Data.Data.Content
 
                         await connection.OpenAsync();
                         await cmd.ExecuteNonQueryAsync();
-
                         id = Int32.Parse(cmd.Parameters[Parameter.Id].Value.ToString());
+                        
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine("throwed error ////////////////////////////////////////////////////////////////////" , recipe.RecipeName + "watch for error : ");
                 throw;
             }
 
@@ -67,5 +67,80 @@ namespace RecipeApplication.Data.Data.Content
 
         #endregion Create async
 
+ 
+
+        #region Get async
+
+
+        internal static async Task<Recipe> GetAsync(int id)
+        {
+            Recipe retVal = null;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GlobalSettings.DbConnectionString))
+                {
+                    using (var cmd = new SqlCommand(StoredProc.Recipes_Get, connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(Parameter.Id, SqlDbType.Int).Value = id;
+                        await connection.OpenAsync();
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            if (reader != null && await reader.ReadAsync())
+                            {
+                                retVal = new Recipe(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
+        }
+
+        #endregion Get async
+
+        #region Gets async
+    
+         internal static async Task<List<Recipe>> GetsAsync()
+        {
+            Recipe retVal = null;
+            List<Recipe> RecipeList = new List<Recipe>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GlobalSettings.DbConnectionString))
+                {
+                    using (var cmd = new SqlCommand(StoredProc.Recipe_Get, connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        
+                        await connection.OpenAsync();
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            if (reader != null && await reader.ReadAsync())
+                            {
+                                retVal = new Recipe(reader);
+                                RecipeList.Add(retVal);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RecipeList;
+        }
+
+        #endregion Gets async
     }
 }
